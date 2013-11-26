@@ -7,28 +7,28 @@ packages:
       - python-dev
       - python-pip
 
-test_venv:
+venv:
   conda.managed:
-    - user: vagrant
-    - pkgs: ipython,tornado,pyzmq,jinja2,numpy,scipy,pandas,scikit-learn
+    - user: ubuntu
+    - pkgs: ipython-notebook,numpy,scipy,pandas,scikit-learn
   pip.installed:
-    - user: vagrant
+    - user: ubuntu
     - name: requests
-    - bin_env: /home/vagrant/anaconda/envs/test_venv/bin/pip
+    - bin_env: /home/ubuntu/anaconda/envs/test_venv/bin/pip
 
-/home/vagrant/.ipython/profile_nbserver:
+/home/ubuntu/.ipython/profile_nbserver:
   file.recurse:
-    - user: vagrant
+    - user: ubuntu
     - makedirs: True
     - source: salt://ipythonnb/profile_nbserver
 
-/home/vagrant/notebooks:
+/home/ubuntu/notebooks:
   file.directory:
-    - user: vagrant
+    - user: ubuntu
     - makedirs: True
 
 start-nbserver:
   cmd.script:
     - source: salt://ipythonnb/start-nbserver.sh
-    - cwd: /home/vagrant/notebooks
-    - user: vagrant
+    - cwd: /home/ubuntu/notebooks
+    - user: ubuntu
