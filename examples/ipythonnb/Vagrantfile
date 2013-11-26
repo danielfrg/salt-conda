@@ -5,6 +5,9 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "precise64"
+
+  # if local vagrant dev, comment line below when creating the image
+  # uncomment for doing `vagrant ssh`
   # config.ssh.username = "ubuntu"
 
   # For salt masterless, mount your file roots file root
@@ -18,6 +21,22 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     salt.minion_config = "salt/minion"
     salt.run_highstate = true
     salt.verbose = true
+  end
+
+  # AWS Provider
+  config.vm.provider :aws do |aws, override|
+    aws.access_key_id = ""
+    aws.secret_access_key = ""
+    aws.keypair_name = "my_aws"
+
+    aws.security_groups = ["default"]
+    aws.instance_type = "t1.large"
+    aws.availability_zone = "us-east-1a"
+    aws.ami = "ami-a73264ce"  # Precise 12.04 64 bits
+
+    override.vm.box = "dummy"
+    override.ssh.username = "ubuntu"
+    override.ssh.private_key_path = "~/.ssh/my_aws.pem"
   end
 
 end
