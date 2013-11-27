@@ -35,3 +35,8 @@ nosetests.xml
 .project
 .pydevproject
 .vagrant
+
+
+# SSH keys
+.pem
+.pub
