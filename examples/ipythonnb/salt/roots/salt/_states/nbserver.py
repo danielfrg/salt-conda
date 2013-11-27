@@ -4,7 +4,7 @@ import time
 import subprocess
 
 
-def start_server(name, ip='0.0.0.0', port=8888, restart=False, pid='/home/ubuntu/nbserver.pid'):
+def start_server(name, ip='localhost', port=8888, restart=False, pid='/home/ubuntu/nbserver.pid'):
     ans = {}
     ans['name'] = name
     ans['changes'] = {}

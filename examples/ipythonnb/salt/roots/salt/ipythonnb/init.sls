@@ -20,19 +20,21 @@ ubuntu:
 #     - user: ubuntu
 #     - source: salt://ssh_keys/publickey.pub
 
-# packages:
-#   pkg.installed:
-#     - user: ubuntu
-#     - names:
-#       - python-dev
-#       - python-pip
-#       - tmux
+packages:
+  pkg.installed:
+    - user: ubuntu
+    - names:
+      - python-dev
+      - python-pip
+      - tmux
 
 # the conda package is installed in the main python installation
 # so it needs to be installed by root
 conda:
   pip.installed:
     - user: root
+    - require:
+        - pkg: python-pip
 
 conda-check:
   cmd.run:
@@ -69,6 +71,7 @@ luigi:
 
 ipythonnb-server:
   nbserver.start_server:
+    - ip: 0.0.0.0
     - port: 80
 
 # start-nbserver:
