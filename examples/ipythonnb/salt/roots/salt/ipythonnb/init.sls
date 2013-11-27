@@ -22,24 +22,27 @@ packages:
     - names:
       - python-dev
       - python-pip
-      - tmux
 
-# the conda package is installed in the main python installation
-# so it needs to be installed by root
-conda:
+# The conda package is installed in the main python installation, needs root
+pip-packages:
   pip.installed:
     - user: root
+    - names:
+      - conda
     - require:
-        - pkg: python-pip
+      - pkg: python-dev
+      - pkg: python-pip
 
 conda-check:
   cmd.run:
     - user: ubuntu
     - name: "[ -d /usr/conda-meta ] && echo 'changed=no' || echo 'changed=yes'"
     - stateful: True
+    - require:
+      - pip: conda
 
-# This will create some files into /usr so needs to be by root
-conda:
+# This will create some files into /usr, needs root
+conda-init:
   cmd.wait:
     - user: root
     - name: "conda init"
@@ -50,12 +53,17 @@ venv:
   conda.managed:
     - user: ubuntu
     - pkgs: ipython-notebook,numpy,scipy,pandas,scikit-learn
+    - require:
+      - cmd: conda-init
 
-luigi:
+venv-pip:
   pip.installed:
     - user: ubuntu
-    - name: luigi
+    - names:
+      - luigi
     - bin_env: /home/ubuntu/envs/venv/bin/pip
+    - require:
+      - conda: venv
 
 # --------------------------------------------------
 # Special code for the ipython notebook
@@ -69,9 +77,5 @@ ipythonnb-server:
   nbserver.start_server:
     - ip: 0.0.0.0
     - port: 80
-
-# start-nbserver:
-#   cmd.script:
-#     - user: ubuntu
-#     - source: salt://ipythonnb/start-nbserver.sh
-#     - cwd: /home/ubuntu/notebooks
+    - require:
+      - conda: venv
