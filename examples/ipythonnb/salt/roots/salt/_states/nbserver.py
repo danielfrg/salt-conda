@@ -4,7 +4,7 @@ import time
 import subprocess
 
 
-def start_server(name, ip='localhost', port=8888, restart=False):
+def start_server(name, ip='localhost', port=8888, nb_dir='/home/ubuntu/', restart=False):
     '''
     name is the file path with the pid
     '''
@@ -31,9 +31,9 @@ def start_server(name, ip='localhost', port=8888, restart=False):
 
     if restart:
         # No notebook is running right now
-        cmd = 'sudo /home/ubuntu/envs/venv/bin/ipython notebook --ip={0} --port={1} --no-browser &'
-        cmd += 'echo $! > {2}'
-        cmd = cmd.format(ip, port, name)
+        cmd = 'sudo /home/ubuntu/envs/venv/bin/ipython notebook --ip={0} --port={1} --notebook-dir={2} --no-browser &'
+        cmd += 'echo $! > {3}'
+        cmd = cmd.format(ip, port, nb_dir, name)
         proc = subprocess.Popen([cmd], shell=True, close_fds=True)
         ans['comment'] = 'New notebook running in {0}:{1}'.format(ip, port)
         ans['changes']['new'] = 'New notebook running in {0}:{1}'.format(ip, port)

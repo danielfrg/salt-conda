@@ -77,5 +77,6 @@ venv-pip:
   nbserver.start_server:
     - ip: 0.0.0.0
     - port: 80
+    - nb_dir: /home/ubuntu/notebooks
     - require:
       - conda: venv
