@@ -14,11 +14,11 @@ ubuntu:
 
 # If you want extra security can create a file with the public key of you keypair
 # and the code above will add it to the authorized keys so you can ssh to the box
-sshkey:
-  ssh_auth:
-    - present
-    - user: ubuntu
-    - source: salt://ssh_keys/publickey.pub
+# sshkey:
+#   ssh_auth:
+#     - present
+#     - user: ubuntu
+#     - source: salt://ssh_keys/publickey.pub
 
 # packages:
 #   pkg.installed:
