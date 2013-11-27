@@ -6,11 +6,7 @@
 ubuntu:
   user.present:
     # - password: $6$SALTsalt$UiZikbV3VeeBPsg8./Q5DAfq9aj7CVZMDU6ffBiBLgUEpxv7LMXKbcZ9JSZnYDrZQftdG319XkbLVMvWcF/Vr/
-    - home: /home/ubuntu
     - shell: /bin/bash
-    - createhome: True
-    - groups:
-      - sudo
 
 # If you want extra security can create a file with the public key of you keypair
 # and the code above will add it to the authorized keys so you can ssh to the box
