@@ -73,7 +73,7 @@ venv-pip:
     - user: ubuntu
     - makedirs: True
 
-ipythonnb-server:
+/home/vagrant/nbserver.pid:
   nbserver.start_server:
     - ip: 0.0.0.0
     - port: 80
