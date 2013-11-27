@@ -6,11 +6,15 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "precise64"
 
-  # if local vagrant dev, comment line below when creating the image
-  # uncomment for doing `vagrant ssh`
-  # config.ssh.username = "ubuntu"
+  # For local vagrant development, comment line below when creating the image
+  # then uncomment for doing `vagrant ssh` or do `su ubuntu`
+  config.ssh.username = "ubuntu"
+  # If you want more security, can put here the path to the key.
+  # But also have to set the ipythonnb/init.sls state
+  config.ssh.private_key_path = '/Users/danielfrg/.ssh/oculus/daniel_keypair.pem'
 
   Vagrant.configure("2") do |config|
+    config.ssh.forward_agent = true
     config.vm.network "forwarded_port", guest: 80, host: 8080
   end
 
