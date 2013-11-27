@@ -34,7 +34,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     aws.keypair_name = "my_aws"
 
     aws.security_groups = ["default"]
-    aws.instance_type = "t1.large"
+    aws.instance_type = "m1.large"
     aws.availability_zone = "us-east-1a"
     aws.ami = "ami-a73264ce"  # Precise 12.04 64 bits
 
